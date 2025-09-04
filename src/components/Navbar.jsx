@@ -1,135 +1,84 @@
-import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
-import Container from "./Container.jsx";
-
-const linkBase =
-  "px-3 py-2 text-sm font-medium transition-colors duration-300";
-const activeLink = "text-blue-600";
-const inactiveLinkLight = "text-white"; // For transparent background
-const inactiveLinkDark = "text-gray-700"; // For scrolled background
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    { path: "/", label: "HOME" },
+    { path: "/about", label: "ABOUT US" },
+    { path: "/solutions", label: "SOLUTION" },
+    { path: "/why-hydroid", label: "WHY HYDROID" },
+    { path: "/resources", label: "RESOURCES" },
+    { path: "/contact", label: "CONTACT" },
+  ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinkClass = ({ isActive }) =>
-    `${linkBase} ${isActive ? activeLink : isScrolled ? inactiveLinkDark : inactiveLinkLight}`;
+  // close mobile menu on navigation
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      <Container className="flex h-16 items-center justify-between">
-        {/* Logo / Brand */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded bg-blue-600" />
-          <span
-            className={`text-lg font-bold transition-colors duration-300 ${
-              isScrolled ? "text-gray-900" : "text-white"
-            }`}
-          >
-            Hydroid
-          </span>
-        </Link>
+    <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="container nav-row">
+        <div className="brand">
+          <Link to="/">Hydroid</Link>
+        </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
-          <NavLink to="/" className={navLinkClass} end>
-            Home
-          </NavLink>
-          <NavLink to="/about" className={navLinkClass}>
-            About
-          </NavLink>
-          <NavLink to="/solutions" className={navLinkClass}>
-            Solutions
-          </NavLink>
-          <NavLink to="/why-hydroid" className={navLinkClass}>
-            Why Hydroid
-          </NavLink>
-          <NavLink to="/resources" className={navLinkClass}>
-            Resources
-          </NavLink>
-          <NavLink to="/contact" className={navLinkClass}>
-            Contact
-          </NavLink>
+        <nav className="nav-desktop" aria-label="Primary">
+          <ul>
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link to={item.path}>{item.label}</Link>
+              </li>
+            ))}
+          </ul>
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          className={`md:hidden inline-flex items-center justify-center rounded border px-3 py-2 text-sm transition-colors duration-300 ${
-            isScrolled ? "text-gray-800 border-gray-400" : "text-white border-white"
-          }`}
-          onClick={() => setOpen((s) => !s)}
-          aria-label="Toggle menu"
-        >
-          {open ? "✖" : "☰"}
-        </button>
-      </Container>
+        <div className="nav-actions">
+          <Link to="/login" className="login-link">
+            LOGIN
+          </Link>
 
-      {/* Mobile nav */}
-      {open && (
-        <div
-          className={`md:hidden border-t transition-all duration-300 ${
-            isScrolled ? "bg-white border-gray-200" : "bg-black/70"
-          }`}
-        >
-          <Container className="py-2 grid gap-1">
-            <NavLink
-              to="/"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-              end
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/solutions"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-            >
-              Solutions
-            </NavLink>
-            <NavLink
-              to="/why-hydroid"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-            >
-              Why Hydroid
-            </NavLink>
-            <NavLink
-              to="/resources"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-            >
-              Resources
-            </NavLink>
-            <NavLink
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className={navLinkClass}
-            >
-              Contact
-            </NavLink>
-          </Container>
+          <button className="icon-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+
+          <button
+            className={`hamburger ${open ? "open" : ""}`}
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
-      )}
+      </div>
+
+      <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+        <ul>
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <Link to={item.path}>{item.label}</Link>
+            </li>
+          ))}
+          <li>
+            <Link to="/login">LOGIN</Link>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }

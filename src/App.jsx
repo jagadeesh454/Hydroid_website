@@ -1,9 +1,11 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 
 // PAGES
 import Home from "./pages/Home.jsx";
+// If you have these pages already, keep them. If not, they can be simple placeholders.
 import About from "./pages/About.jsx";
 import Solutions from "./pages/Solutions.jsx";
 import WhyHydroid from "./pages/WhyHydroid.jsx";
@@ -13,9 +15,9 @@ import Contact from "./pages/Contact.jsx";
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
+      <div className="app-root">
         <Navbar />
-        <main className="flex-1">
+        <main className="app-main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
