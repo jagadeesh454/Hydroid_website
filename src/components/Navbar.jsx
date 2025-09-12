@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link as ScrollLink, scroller } from "react-scroll";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { path: "/", label: "HOME" },
     { path: "/about", label: "ABOUT US" },
     { path: "/solutions", label: "SOLUTION" },
-    { path: "/why-hydroid", label: "WHY HYDROID" },
+    { path: "/why-hydroid", label: "WHY HYDROID", scrollTo: "features" }, // ✅ scroll target
     { path: "/resources", label: "RESOURCES" },
     { path: "/contact", label: "CONTACT" },
   ];
@@ -26,6 +28,18 @@ export default function Navbar() {
     setOpen(false);
   }, [location.pathname]);
 
+  const handleWhyHydroidClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
+      }, 300);
+    }
+  };
+
   return (
     <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
       <div className="container nav-row">
@@ -37,7 +51,13 @@ export default function Navbar() {
           <ul>
             {navItems.map((item) => (
               <li key={item.path}>
-                <Link to={item.path}>{item.label}</Link>
+                {item.scrollTo ? (
+                  <a href={item.path} onClick={handleWhyHydroidClick}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link to={item.path}>{item.label}</Link>
+                )}
               </li>
             ))}
           </ul>
@@ -71,7 +91,13 @@ export default function Navbar() {
         <ul>
           {navItems.map((item) => (
             <li key={item.path}>
-              <Link to={item.path}>{item.label}</Link>
+              {item.scrollTo ? (
+                <a href={item.path} onClick={handleWhyHydroidClick}>
+                  {item.label}
+                </a>
+              ) : (
+                <Link to={item.path}>{item.label}</Link>
+              )}
             </li>
           ))}
           <li>
