@@ -1,70 +1,52 @@
 import React from "react";
-import Section from "../components/Section";
 
-function Resources() {
+const ContactPage = () => {
   return (
-    <Section title="Resources" subtitle="Guides and Help">
-      <p className="text-center">Check our FAQs, user guides, and latest news about LPG technology.</p>
-    </Section>
+    <div>
+      {/* Background Video */}
+      <video autoPlay muted loop id="bg-video">
+        <source
+          src="https://cdn.pixabay.com/video/2025/06/20/286930_large.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support HTML5 video.
+      </video>
+
+      {/* Contact Info */}
+      <div id="contact-us">
+        <h1>Contact Us</h1>
+        <p>Email: hydroid@gmail.com</p>
+        <p>Phone: +91 9876543210</p>
+        <p>
+          Address: 3rd Floor, Silver Soft IT Park, SiSoC Group, 23, Rd Number 7,
+          <br />
+          EPIP Zone, KIADB Export Promotion Industrial Area, Whitefield, <br />
+          Bengaluru, Karnataka 560066
+        </p>
+      </div>
+
+      {/* CSS inside JSX */}
+      <style jsx>{`
+        #bg-video {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          overflow: hidden;
+        }
+
+        #contact-us {
+          color: beige;
+          text-align: center;
+          margin-top: 100px;
+          font-family: "arial", sans-serif;
+        }
+      `}</style>
+    </div>
   );
-}
+};
 
-export default Resources;
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import Section from "../components/Section";
-// import { MapPin, Mail, Phone } from "lucide-react";
-
-// export default function Contact() {
-//   const [form, setForm] = useState({ name: "", email: "", message: "" }); // STATE
-//   const [sent, setSent] = useState(false);
-
-//   const onSubmit = (e) => {
-//     e.preventDefault();                     // stop page reload
-//     if (!form.name || !form.email || !form.message) {
-//       return alert("Please fill all fields");
-//     }
-//     setSent(true);
-
-//     // example: POST to your backend later
-//     // fetch("/api/contact", {
-//     //   method: "POST",
-//     //   headers: { "Content-Type": "application/json" },
-//     //   body: JSON.stringify(form),
-//     // });
-//   };
-
-//   return (
-//     <Section title="Contact Us" subtitle="We'd love to hear from you">
-//       <div className="grid gap-10 lg:grid-cols-2">
-//         <form onSubmit={onSubmit} className="rounded-2xl border p-6 shadow-sm">
-//           {/* Controlled inputs: value comes from state, onChange updates state */}
-//           <input
-//             value={form.name}
-//             onChange={(e)=>setForm({...form, name:e.target.value})}
-//             placeholder="Your name"
-//             className="mt-1 w-full rounded-xl border px-3 py-2 outline-none"
-//           />
-//           {/* email + textarea similar */}
-//           <button type="submit" className="mt-4 rounded-2xl bg-primary px-5 py-2.5 text-primary-foreground">
-//             Send Inquiry
-//           </button>
-//           {sent && <p className="text-sm text-green-600 mt-2">Thanks! We'll get back to you shortly.</p>}
-//         </form>
-
-//         {/* Contact info + map placeholder */}
-//       </div>
-//     </Section>
-//   );
-// }
+export default ContactPage;
