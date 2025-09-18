@@ -3,10 +3,12 @@ import { motion } from "framer-motion";
 import backgroundVideo from "../assets/264948_tiny.mp4";
 import clientsBackground from "../assets/Hydroid.mp4";
 import flowVideo from "../assets/hydroid-vedio1.mp4";
-import deploymentImg from "../assets/vila-and-building.jpeg";
+import saveWaterVideo from "../assets/save-water-video.mp4";
+import deploymentImg from "../assets/vila-and-building.jpg";
 import dwarakamaiLogo from "../assets/dwarakamai-apex-villas-logo.png";
 import srinidhiLogo from "../assets/srinidhi-the-central-park-logo.png";
 import sarojLogo from "../assets/blue-bell-floor-logo.png";
+import featuresBackground from "../assets/watermeter-backround-image.mp4";
 
 import {
   FaFileInvoiceDollar,
@@ -28,7 +30,14 @@ export default function Home() {
     "Transparent billing, smarter living. Hydroid ensures you pay only for what you actually use.",
   ];
 
+  const aboutTaglines = [
+    "Save Water, Save Life – Every Drop Counts.",
+    "Conserve today, sustain tomorrow.",
+    "Together, let’s protect our planet’s most precious resource.",
+  ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [aboutIndex, setAboutIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,8 +46,19 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [taglines.length]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAboutIndex((prevIndex) => (prevIndex + 1) % aboutTaglines.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [aboutTaglines.length]);
+
   const goToSlide = (index) => {
     setCurrentIndex(index);
+  };
+
+  const goToAboutSlide = (index) => {
+    setAboutIndex(index);
   };
 
   const features = [
@@ -71,6 +91,16 @@ export default function Home() {
       img: sarojLogo,
     },
   ];
+
+  // Animation for word-by-word
+  const wordAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.08 },
+    }),
+  };
 
   return (
     <>
@@ -135,11 +165,28 @@ export default function Home() {
 
       {/* Features Section */}
       <section id="features" className="section features">
+        {/* Background Video */}
+        <div className="bg-video" aria-hidden>
+          <video autoPlay muted loop playsInline preload="auto">
+            <source src={featuresBackground} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className="features-overlay"></div>
+
+        {/* Content */}
         <div className="container">
-          <h2 className="section-title">Smart Water Meter Features</h2>
+          <h2 className="section-title">Why Hydroid?</h2>
           <div className="features-grid">
             {features.map((f, index) => (
-              <motion.div key={index} className="feature-card" whileHover={{ scale: 1.05 }}>
+              <motion.div
+                key={index}
+                className="feature-card"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="feature-icon">{f.icon}</div>
                 <h3>{f.title}</h3>
                 <p>{f.text}</p>
@@ -149,7 +196,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clients Section with background video */}
+      {/* Clients Section */}
       <section id="clients" className="section clients">
         <div className="bg-video" aria-hidden>
           <video autoPlay muted loop playsInline preload="auto">
@@ -157,14 +204,10 @@ export default function Home() {
             Your browser does not support the video tag.
           </video>
         </div>
-
-        {/* overlay */}
         <div className="clients-overlay" />
-
         <div className="container">
           <h2 className="section-title">Our Trusted Clients</h2>
           <p className="section-subtitle">We are proud to be trusted by leading communities & developers</p>
-
           <div className="clients-grid">
             {clients.map((c, i) => (
               <motion.a
@@ -186,15 +229,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section id="how-it-works" className="section how-it-works">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="section how-it-works bg-image-section">
         <div className="container">
           <h2 className="section-title">How It Works</h2>
-          <p className="section-subtitle">
-            Our IoT-enabled water management follows a streamlined flow:
+
+          {/* First line animated */}
+          <div className="section-subtitle">
+            {"Our IoT-enabled water management follows a streamlined flow:"
+              .split(" ")
+              .map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  style={{ display: "inline-block", marginRight: "6px" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
             <br />
-            <strong>IoT Device → LoRa Gateway → TTI/TTN → Backend/Server → Database → UI</strong>
-          </p>
+            <strong>
+              {"IoT Device → LoRa Gateway → TTI/TTN → Backend/Server → Database → UI"
+                .split(" ")
+                .map((word, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    variants={wordAnimation}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    style={{ display: "inline-block", marginRight: "6px" }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+            </strong>
+          </div>
 
           <motion.div
             className="flow-diagram"
@@ -222,15 +297,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="section about">
+      {/* About Us Intro Section */}
+      <section className="section about-intro">
         <div className="container">
-          <h2>About Us</h2>
-          <p>
-            At Hydroid, we deliver smart IoT-driven solutions for apartments, villas, and enterprises. Our technology
-            ensures accuracy, efficiency, and sustainability in water management—helping communities save money and
-            conserve resources.
+          <h2 className="section-title">About Us</h2>
+          <p className="section-subtitle">
+            {"At Hydroid, we deliver smart IoT-driven solutions for apartments, villas, and enterprises. Our technology ensures accuracy, efficiency, and sustainability in water management— helping communities save money and conserve resources."
+              .split(" ")
+              .map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  style={{ display: "inline-block", marginRight: "6px" }}
+                >
+                  {word}
+                </motion.span>
+              ))}
           </p>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="about-section">
+        <div className="about-video-container">
+          <video src={saveWaterVideo} autoPlay loop muted playsInline className="about-video"></video>
+        </div>
+        <div className="about-overlay">
+          <motion.h2
+            className="about-heading"
+            key={aboutIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {aboutTaglines[aboutIndex]}
+          </motion.h2>
         </div>
       </section>
 
