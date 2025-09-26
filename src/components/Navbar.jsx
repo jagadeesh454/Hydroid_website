@@ -11,7 +11,7 @@ export default function Navbar() {
   const navItems = [
     { path: "/", label: "HOME" },
     { path: "/about", label: "ABOUT US" },
-    { path: "/solutions", label: "SOLUTION" },
+    { path: "/solution", label: "SOLUTION" },
     { path: "/why-hydroid", label: "WHY HYDROID", scrollTo: "features" }, // ✅ scroll target
     { path: "/resources", label: "RESOURCES" },
     { path: "/contact", label: "CONTACT" },

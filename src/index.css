@@ -650,12 +650,11 @@ body {
 /* === About Us with Save Water Video === */
 .about-section {
   position: relative;
-  height: 70vh; 
+  height: 60vh; 
   width: 100%;
   overflow: hidden;
 }
 
-/* Fullscreen video background */
 .about-video-container {
   position: absolute;
   top: 0;
@@ -677,11 +676,10 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 0;
 }
 
 .about-heading {
@@ -705,7 +703,7 @@ body {
 /* Hero Section */
 .aboutus .hero {
   position: relative;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1052,3 +1050,229 @@ body {
   }
 }
 
+/* === SOLUTIONS PAGE === */
+.solutionus {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* Section title */
+.solutionus .section-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: #1d3557;
+  font-weight: bold;
+  position: relative;
+}
+
+/* === Background Video Section === */
+.solutionus .image-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full screen */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solutionus .background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 1;
+  /* transform: translate(-50%, -50%); */
+  object-fit: cover;
+}
+
+.solutionus .image-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background: rgba(0, 0, 0, 0.45); dark overlay */
+  z-index: 0;
+}
+
+.solutionus .image-overlay {
+  position: relative;
+  z-index: 3;
+  /* color: #fff; */
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Cards Grid */
+.solutionus .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+/* Card */
+.solutionus .card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.solutionus .card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #0077ff;
+  color: #1d3557;
+}
+
+/* Icon */
+.solutionus .card .feature-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* Card Heading */
+.solutionus .card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: inherit;
+}
+
+/* Card Paragraph */
+.solutionus .card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
+/* === Lists (How It Works + Our Impact) === */
+.solutionus .list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  position: relative;
+  z-index: 3;
+}
+
+.solutionus .list li {
+  background: #fff;
+  padding: 15px 20px;
+  margin: 12px 0;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .solutionus .section-title {
+    font-size: 2rem;
+  }
+
+  .solutionus .card {
+    padding: 20px 15px;
+  }
+
+  .solutionus .card h3 {
+    font-size: 1.1rem;
+  }
+
+  .solutionus .card p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Section with water background */
+.water-background {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 80px 20px;
+  color: white;
+  text-align: center;
+}
+
+.water-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 30, 60, 0.6); /* dark overlay */
+  z-index: 0;
+}
+
+.overlay-content {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 60px;
+}
+
+/* Titles with animation */
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Add gradient animated text effect */
+.animated-text {
+  background: linear-gradient(90deg, #00c6ff, #0072ff, #00c6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine { 
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* List items styling */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.list li {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+  padding: 15px 20px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.list li:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
