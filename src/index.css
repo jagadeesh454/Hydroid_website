@@ -1052,3 +1052,175 @@ body {
   }
 }
 
+                                /* === CONTACT PAGE STYLES === */
+
+    .contact-page {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Background video */
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Overlay */
+.overlay {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* Contact Section */
+#contact-section {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+  color: beige;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.top-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.contact-info {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.contact-info a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Register Button */
+.register-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: rgb(78, 78, 224);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.register-btn:hover {
+  background: blue;
+  color: white;
+}
+
+/* Map Styling */
+.map {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.map iframe {
+  width: 70%;
+  height: 200px;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Contact Form */
+.contact-wrapper {
+  margin-top: 50px;
+  width: 500px;
+  text-align: center;
+}
+
+form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1rem;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #ddd;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background: rgb(84, 84, 192);
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form button:hover {
+  background: rgb(43, 43, 231);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .map iframe {
+    height: 250px;
+    width: 100%;
+  }
+
+  .contact-wrapper {
+    width: 100%;
+  }
+}
