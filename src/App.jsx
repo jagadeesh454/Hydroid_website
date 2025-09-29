@@ -21,7 +21,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/solutions" element={<Solutions />} />
+            <Route path="/solution" element={<Solutions />} />
             <Route path="/why-hydroid" element={<WhyHydroid />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/contact" element={<Contact />} />
