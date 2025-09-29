@@ -103,7 +103,7 @@ export default function Solutions() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={zoomIn}
-            className="section-title animated-text"
+            className="section-title"
           >
             What We Do
           </motion.h2>
@@ -145,7 +145,7 @@ export default function Solutions() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={zoomIn}
-            className="section-title animated-text"
+            className="section-title"
           >
             How It Works
           </motion.h2>
@@ -163,7 +163,12 @@ export default function Solutions() {
               "Automated billing ensures fairness.",
               "Leaks or abnormal usage trigger instant alerts.",
             ].map((item, i) => (
-              <motion.li key={i} variants={fadeInRight}>
+              <motion.li
+                key={i}
+                variants={fadeInRight}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 {item}
               </motion.li>
             ))}
@@ -177,7 +182,7 @@ export default function Solutions() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={zoomIn}
-            className="section-title animated-text"
+            className="section-title"
           >
             Our Impact
           </motion.h2>
@@ -194,7 +199,12 @@ export default function Solutions() {
               "🚨 Leak detection saves thousands of liters of water per year.",
               "📊 Data-driven governance for communities and cities.",
             ].map((item, i) => (
-              <motion.li key={i} variants={fadeInLeft}>
+              <motion.li
+                key={i}
+                variants={fadeInLeft}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 {item}
               </motion.li>
             ))}
