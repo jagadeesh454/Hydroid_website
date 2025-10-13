@@ -1409,3 +1409,134 @@ form button:hover {
     width: 100%;
   }
 }
+
+
+                        /* ===== FAQ PAGE STYLES ===== */
+
+/* Heading section */
+#faq-img {
+  background-image: url("https://media.istockphoto.com/id/1353027787/photo/question-marks-background.jpg?s=612x612&w=0&k=20&c=BvTyzhWNbDkrNHg-TlbKcIgeIkpI8I-eoeENBQFqsSE=");
+  background-size: 70%;
+  background-position: top 50% right 50%;
+  color: white;
+  font-size: 50px;
+  padding: 50px;
+  margin: 0;
+  border-radius: 5px;
+  animation: fadeIn 2s ease-in-out;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  gap: 150px;
+}
+
+#faq-img img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  animation: fadeIn 4s ease-in-out;
+  position: relative;
+}
+
+#heading {
+  text-align: center;
+}
+
+/* Background for main section */
+#main-section {
+  padding: 24px;
+  background-image: url("https://media.istockphoto.com/id/1002879894/photo/wood-texture-plank-grain-background-wooden-desk-table-or-floor-old-striped-timber-board.jpg?s=612x612&w=0&k=20&c=toYV3COSnio2899tS5llC0jI96axoAuD7OJEneg_wFw=");
+  border-radius: 3px;
+}
+
+/* FAQ Box Styling */
+.faq {
+  width: 60%;
+  margin: 20px auto;
+  padding: 10px 13px;
+  border: 2px solid white;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: bisque;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Hover effect */
+.faq:hover {
+  transform: scale(1.02);
+  background-color: rgba(0, 110, 255, 0.7);
+  color: white;
+}
+
+/* FAQ question (summary) styling */
+.faq summary {
+  font-weight: bold;
+  list-style: none;
+  font-style: oblique;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Animation for opening FAQ answers */
+.faq[open] p,
+.faq[open] .answer {
+  animation: slideDown 0.5s ease forwards;
+}
+
+/* FAQ answer text */
+.faq p {
+  margin-left: 20px;
+  color: #fff;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.5s ease;
+}
+
+.faq[open] p {
+  opacity: 1;
+  max-height: 300px;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 800px) {
+  #faq-img {
+    flex-direction: column;
+    gap: 20px;
+    font-size: 28px;
+    padding: 28px;
+  }
+
+  .faq {
+    width: 90%;
+  }
+}
+
