@@ -11,6 +11,7 @@ import Solutions from "./pages/Solutions.jsx";
 import WhyHydroid from "./pages/WhyHydroid.jsx";
 import Resources from "./pages/Resources.jsx";
 import Contact from "./pages/Contact.jsx";  
+import Login from "./pages/Login.jsx";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/why-hydroid" element={<WhyHydroid />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/Login" element={<Login />} />            
           </Routes>
         </main>
         <Footer />

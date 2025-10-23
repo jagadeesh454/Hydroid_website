@@ -2535,7 +2535,7 @@ form button:hover {
   --accent: #82b8f9;
 }
 
-#main-container {
+#main-container-cs {
   background: white;
   color: black;
   font-family: Arial, sans-serif;
@@ -2552,19 +2552,19 @@ form button:hover {
   animation: glowText 2s ease-in-out infinite alternate, slideDown 1.2s ease-out forwards;
 }
 
-#heading {
+#heading-cs {
   color: white;
   /* margin-top: 30px; */
   padding: 2px;
   margin-bottom: 0;
 }
 
-#text-container {
+#text-container-cs {
   margin: 10px;
   text-align: center;
 }
 
-#solution-head {
+#solution-head-cs {
   color: var(--primary);
   margin-top: 10px;
   margin-bottom: 0;
@@ -2581,7 +2581,7 @@ form button:hover {
   text-align: center;
 }
 
-#contact {
+#contact-GT {
   margin-top: 50px;
   padding-left: 20px;
   text-align: center;
@@ -2596,19 +2596,19 @@ form button:hover {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-#list-container {
+#list-container-cs {
   margin-top: 20px;
   text-align: center;
 }
 
-#list-items {
+#list-items-cs {
   list-style: none;
   padding: 0;
   margin: 0 auto;
   max-width: 1100px;
 }
 
-#list-items li {
+#list-items-cs li {
   background-color: whitesmoke;
   color: rgb(58, 54, 54);
   margin: 10px;
@@ -2624,14 +2624,14 @@ form button:hover {
   vertical-align: top;
 }
 
-#list-items li:hover {
+#list-items-cs li:hover {
   background-color: rgb(114, 180, 255);
   color: gray;
   transform: scale(1.07);
   box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
 }
 
-#list-items img {
+#list-items-cs img {
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -2639,7 +2639,7 @@ form button:hover {
   margin-bottom: 10px;
 }
 
-#list-items p {
+#list-items-cs p {
   font-size: 0.95rem;
   line-height: 1.4;
   color: black;
@@ -2736,7 +2736,7 @@ form button:hover {
   overflow: hidden;
 }
 
-#main-container {
+#main-container-login {
   width: 320px;
   color: white;
   border-radius: 10px;
@@ -2764,7 +2764,7 @@ form button:hover {
   }
 }
 
-#main-container h1 {
+#main-container-login h1 {
   color: white;
   font-size: 26px;
   margin-bottom: 5px;
@@ -2772,7 +2772,7 @@ form button:hover {
   animation: slideIn 1s ease forwards;
 }
 
-#heading {
+#heading-log {
   color: rgb(62, 139, 254);
   margin-bottom: 25px;
   font-size: 28px;
@@ -2825,7 +2825,7 @@ form button:hover {
   }
 }
 
-#submit {
+#submit-sign {
   padding: 10px 20px;
   border-radius: 5px;
   background-color: rgb(62, 139, 254);
@@ -2852,7 +2852,7 @@ form button:hover {
   }
 }
 
-#submit:hover {
+#submit-sign:hover {
   background-color: rgb(52, 59, 248);
   transform: scale(1.05);
 }

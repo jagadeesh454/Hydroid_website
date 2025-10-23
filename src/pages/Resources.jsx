@@ -141,11 +141,11 @@ function FAQPage() {
 // ✅ Your original Case Studies section (unchanged)
 function CaseStudies() {
   return (
-    <section id="main-container">
+    <section id="main-container-cs">
       <div id="contact-GT">
-        <h1 id="heading">Case studies</h1>
-        <div id="text-container">
-          <h2 id="solution-head">
+        <h1 id="heading-cs">Case studies</h1>
+        <div id="text-container-cs">
+          <h2 id="solution-head-cs">
             Transforming Communities with Smart Water Solutions
           </h2>
           <p id="paragh-WM">
@@ -155,8 +155,8 @@ function CaseStudies() {
         </div>
       </div>
 
-      <div id="list-container">
-        <ul id="list-items">
+      <div id="list-container-cs">
+        <ul id="list-items-cs">
           <li>
             <img
               src="https://superadmin.homes247.in/images/uploadPropertyImgs/1612521367-10.jpg"
@@ -164,7 +164,7 @@ function CaseStudies() {
               width="300"
               height="200"
             />
-            <p className="text-line">
+            <p className="text-line-cs">
               Srinidhi The Central Park optimized water usage, achieving up to
               40% savings with smart WaterOn metering solutions
             </p>
