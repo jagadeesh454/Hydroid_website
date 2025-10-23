@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import backgroundVideo from "../assets/264948_tiny.mp4";
 import clientsBackground from "../assets/Hydroid.mp4";
 import flowVideo from "../assets/hydroid-vedio1.mp4";
@@ -24,6 +25,8 @@ import {
 } from "react-icons/fa";
 
 export default function Home() {
+  const location = useLocation();
+
   const taglines = [
     "Turn your water into wisdom. Hydroid helps reduce bills by up to 35% while making every drop count.",
     "Conserve today, sustain tomorrow. Hydroid empowers you to track and manage water consumption effortlessly.",
@@ -102,6 +105,31 @@ export default function Home() {
     }),
   };
 
+  // If navigated here with state.scrollTo, scroll to that element after mount.
+  useEffect(() => {
+    const target = location.state?.scrollTo;
+    if (!target) return;
+
+    const id = setTimeout(() => {
+      const el =
+        document.getElementById(target) ||
+        document.querySelector(`[data-scroll-id="${target}"]`) ||
+        document.querySelector(`[name="${target}"]`);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+      // Clear state so refresh doesn't auto-scroll again
+      try {
+        window.history.replaceState({}, document.title, location.pathname);
+      } catch (e) {
+        // ignore
+      }
+    }, 80);
+
+    return () => clearTimeout(id);
+  }, [location.state?.scrollTo, location.pathname]);
+
   return (
     <>
       {/* Hero Section */}
@@ -164,7 +192,7 @@ export default function Home() {
       </motion.div>
 
       {/* Features Section */}
-      <section id="features" className="section features">
+      <section id="features" className="section features" data-scroll-id="features">
         {/* Background Video */}
         <div className="bg-video" aria-hidden>
           <video autoPlay muted loop playsInline preload="auto">

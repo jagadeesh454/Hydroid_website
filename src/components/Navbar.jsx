@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Link as ScrollLink, scroller } from "react-scroll";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,7 +11,7 @@ export default function Navbar() {
     { path: "/", label: "HOME" },
     { path: "/about", label: "ABOUT US" },
     { path: "/solution", label: "SOLUTION" },
-    { path: "/why-hydroid", label: "WHY HYDROID", scrollTo: "features" }, // ✅ scroll target
+    { path: "/why-hydroid", label: "WHY HYDROID", scrollTo: "features" },
     { path: "/resources", label: "RESOURCES" },
     { path: "/contact", label: "CONTACT" },
   ];
@@ -23,22 +22,53 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close mobile menu on navigation
+  // close mobile menu on route change
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
 
-  const handleWhyHydroidClick = (e) => {
-    e.preventDefault();
-    if (location.pathname === "/") {
-      scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
-      }, 300);
-    }
+  // utility: try to find element with id, data-scroll-id, name
+  const findScrollTarget = (targetName) => {
+    if (!targetName) return null;
+    return (
+      document.getElementById(targetName) ||
+      document.querySelector(`[data-scroll-id="${targetName}"]`) ||
+      document.querySelector(`[name="${targetName}"]`)
+    );
   };
+
+  // handle click for nav items that request scrolling
+  // handle click for nav items that request scrolling
+const handleScrollNav = (e, path, targetName = "features") => {
+  if (e && e.preventDefault) e.preventDefault();
+
+  // ✅ If destination is WHY HYDROID, skip scroll state so it always opens at the top
+  if (path === "/why-hydroid") {
+    if (location.pathname === path) {
+      // already on page → scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // navigating to the page → open without scroll target
+      navigate(path);
+    }
+    return;
+  }
+
+  // same logic as before for other pages
+  if (location.pathname === path) {
+    const el = findScrollTarget(targetName);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+    return;
+  }
+
+  navigate(path, { state: { scrollTo: targetName } });
+};
+
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
@@ -50,13 +80,19 @@ export default function Navbar() {
         <nav className="nav-desktop" aria-label="Primary">
           <ul>
             {navItems.map((item) => (
-              <li key={item.path}>
+              <li key={item.label}>
                 {item.scrollTo ? (
-                  <a href={item.path} onClick={handleWhyHydroidClick}>
+                  <a
+                    href={item.path}
+                    onClick={(e) => handleScrollNav(e, item.path, item.scrollTo)}
+                    className={isActive(item.path) ? "active" : ""}
+                  >
                     {item.label}
                   </a>
                 ) : (
-                  <Link to={item.path}>{item.label}</Link>
+                  <Link to={item.path} className={isActive(item.path) ? "active" : ""}>
+                    {item.label}
+                  </Link>
                 )}
               </li>
             ))}
@@ -78,6 +114,8 @@ export default function Navbar() {
           <button
             className={`hamburger ${open ? "open" : ""}`}
             aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             <span />
@@ -87,12 +125,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+      <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
         <ul>
           {navItems.map((item) => (
-            <li key={item.path}>
+            <li key={item.label}>
               {item.scrollTo ? (
-                <a href={item.path} onClick={handleWhyHydroidClick}>
+                <a href={item.path} onClick={(e) => handleScrollNav(e, item.path, item.scrollTo)}>
                   {item.label}
                 </a>
               ) : (
