@@ -10,7 +10,7 @@ import About from "./pages/About.jsx";
 import Solutions from "./pages/Solutions.jsx";
 import WhyHydroid from "./pages/WhyHydroid.jsx";
 import Resources from "./pages/Resources.jsx";
-import Contact from "./pages/Contact.jsx";
+import Contact from "./pages/Contact.jsx";  
 
 export default function App() {
   return (
