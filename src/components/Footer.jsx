@@ -1,12 +1,34 @@
-// Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import logo from "../assets/logo.png"; // <-- ensure this path matches your project
 
 export default function Footer() {
   const fadeUp = {
     hidden: { opacity: 0, y: 12 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  // ✅ Function to open Gmail compose or mail app based on device
+  const handleEmailClick = (e, subject, body = "") => {
+    e.preventDefault();
+
+    const to = "hydroid.iot@gmail.com";
+    const encode = (str) => encodeURIComponent(str || "");
+
+    const gmailUrl =
+      `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${encode(to)}` +
+      `&su=${encode(subject)}&body=${encode(body)}`;
+
+    const mailto = `mailto:${to}?subject=${encode(subject)}&body=${encode(body)}`;
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = mailto;
+    } else {
+      window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
@@ -27,29 +49,18 @@ export default function Footer() {
           {/* Brand and Social Links */}
           <div className="footer-brand">
             <Link to="/" aria-label="Hydroid Home" className="brand-link">
-              <svg
-                width="140"
-                height="36"
-                viewBox="0 0 140 36"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="brand-logo"
-                aria-hidden="true"
-                role="img"
-              >
-                <rect width="140" height="36" rx="6" fill="transparent" />
-                <text
-                  x="6"
-                  y="24"
-                  fontFamily="Inter, Arial, sans-serif"
-                  fontWeight="700"
-                  fontSize="20"
-                  fill="#4FC3F7"
-                  className="brand-logo-text"
-                >
-                  Hydroid
-                </text>
-              </svg>
+              {/* Logo image replaces text SVG */}
+              <img
+                src={logo}
+                alt="Hydroid"
+                className="brand-logo-img"
+                style={{
+                  width: 140,
+                  height: "auto",
+                  display: "block",
+                  background: "transparent",
+                }}
+              />
             </Link>
 
             <nav className="footer-social" aria-label="Social Links">
@@ -158,11 +169,25 @@ export default function Footer() {
             <div className="footer-col">
               <h4 className="col-title">Get Help</h4>
               <ul className="col-list">
+                {/* ✅ Complaints — opens Gmail compose */}
                 <li>
-                  <Link to="/contact" className="footer-link">
+                  <a
+                    href="mailto:hydroid.iot@gmail.com"
+                    className="footer-link"
+                    onClick={(e) =>
+                      handleEmailClick(
+                        e,
+                        "Complaint Regarding Hydroid Services",
+                        `Hello Hydroid Team,
+
+I would like to raise a complaint regarding...`
+                      )
+                    }
+                  >
                     Complaints
-                  </Link>
+                  </a>
                 </li>
+
                 <li>
                   <Link to="/resources?tab=faq" className="footer-link">
                     FAQs
@@ -184,8 +209,20 @@ export default function Footer() {
                 </p>
                 <p className="contact-line">
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:hydroid.iot@gmail.com" className="contact-link">
-                    hydroid@gmail.com
+                  <a
+                    href="mailto:hydroid.iot@gmail.com"
+                    className="contact-link"
+                    onClick={(e) =>
+                      handleEmailClick(
+                        e,
+                        "Inquiry from Hydroid Website",
+                        `Hello Hydroid Team,
+
+I would like to get in touch regarding...`
+                      )
+                    }
+                  >
+                    hydroid.iot@gmail.com
                   </a>
                 </p>
                 <p className="contact-line address">
@@ -210,41 +247,28 @@ export default function Footer() {
                     width="130"
                   />
                 </a>
-
-                {/* <a
-                  href="https://www.apple.com/app-store/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                    alt="App Store"
-                    className="app-badge"
-                    width="130"
-                  />
-                </a> */}
               </div>
             </div>
           </div>
         </div>
 
         {/* -------------------- BOTTOM SECTION -------------------- */}
-        <div className="footer-bottom">
-          <p className="copyright">
-            © {new Date().getFullYear()} Hydroid — All rights reserved.
-          </p>
-          <nav className="footer-legal">
-            <Link to="/TermsAndConditions" className="legal-link">
-              TermsAndConditions
-            </Link>
-            <Link to="/privacy" className="legal-link">
-              Privacy
-            </Link>
-            <Link to="/sitemap" className="legal-link">
-              Sitemap
-            </Link>
-          </nav>
-        </div>
+          <div className="footer-bottom">
+            <p className="copyright">
+              © {new Date().getFullYear()} Hydroid — All rights reserved.
+            </p>
+            <nav className="footer-legal">
+              <Link to="/TermsAndConditions" className="legal-link">
+                TermsAndConditions
+              </Link>
+              <Link to="/privacy" className="legal-link">
+                Privacy
+              </Link>
+              <Link to="/sitemap" className="legal-link">
+                Sitemap
+              </Link>
+            </nav>
+          </div>
       </motion.div>
     </footer>
   );
