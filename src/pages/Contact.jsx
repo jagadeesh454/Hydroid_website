@@ -29,7 +29,7 @@ export default function ContactUs() {
         <div className="top-wrapper">
           <div className="contact-info">
             <p>
-              Email: <a href="mailto:hydroid@gmail.com">hydroid@gmail.com</a>
+              Email: <a href="mailto:hydroid.iot@gmail.com">hydroid@gmail.com</a>
             </p>
             <p>Phone: +91 9876543210</p>
             <p>

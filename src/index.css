@@ -63,16 +63,49 @@ body {
   height: 72px;
 }
 
-/* Brand */
+/* ===== HYDROID NAVBAR LOGO ===== */
+/* ---------- NAVBAR / BRAND WRAPPER ---------- */
+/* Ensure brand area doesn't add its own white background */
+.brand,
 .brand a {
-  display: inline-block;
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: -0.5px;
-  color: inherit;
-  text-decoration: none;
-  text-transform: uppercase;
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* create a circular/oval viewport around the logo image */
+.hydroid-logo {
+  width: 120px;                /* final visible width */
+  height: 68px;                /* final visible height (tweak as required) */
+  display: block;
+  object-fit: cover;           /* fill the viewport */
+  border-radius: 50%;          /* make the viewport circular/oval */
+  overflow: hidden;
+  margin-top: 35px;            /* moves the logo down */
+  background: transparent;     /* ensure no added background */
+  -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%); /* soft edge mask */
+  mask-image: radial-gradient(circle, black 60%, transparent 100%);
+  filter: drop-shadow(0 10px 20px rgba(8, 40, 80, 0.6)); /* soft blue glow */
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* small hover lift + glow */
+.hydroid-logo:hover {
+  transform: translateY(2px) scale(1.03);
+  filter: drop-shadow(0 16px 30px rgba(8, 40, 120, 0.75));
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .hydroid-logo {
+    width: 96px;
+    height: 54px;
+    margin-top: 8px;
+  }
+}
+
 
 /* Desktop nav */
 .nav-desktop {
@@ -580,6 +613,63 @@ body {
   margin-bottom: 70px;
 }
 
+/* ========== CLIENTS SECTION STYLING ========== */
+.clients {
+  position: relative;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.client-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.client-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* Default logo style for all clients */
+.client-logo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: block;
+}
+/* Specific styling for Saroj BlueBells logo */
+.client-logo[alt="Saroj BlueBells"] {
+  width: 180px;          /* smaller size for logo fit */
+  height: auto;          /* keep aspect ratio */
+  object-fit: contain;   /* prevent cropping */
+  display: block;
+  margin: 0 auto 10px;   /* center horizontally */
+  background: #fff;      /* optional: white bg for contrast */
+  padding: 8px;          /* breathing space */
+  border-radius: 8px;
+}
+
+/* Optional hover zoom for Saroj BlueBells only */
+.client-logo[alt="Saroj BlueBells"]:hover {
+  transform: scale(1.05);
+  transition: transform 0.25s ease;
+}
+
+
 /* Client grid */
 /* Client grid wrapper */
 .clients-grid {
@@ -703,6 +793,15 @@ body {
 }
 
 /* Hero Section */
+/* -------------------
+/* =======================================================
+   About Us — modernized visuals
+   (This file replaces the previous aboutus CSS)
+   ======================================================= */
+
+/* ------------------------
+   Hero (unchanged layout, refined overlay)
+   ------------------------ */
 .aboutus .hero {
   position: relative;
   height: 100vh;
@@ -713,6 +812,7 @@ body {
   overflow: hidden;
   color: white;
   margin-bottom: 2rem;
+  background: linear-gradient(180deg, rgba(5,25,40,0.6), rgba(2,12,22,0.6));
 }
 
 .aboutus .hero-video {
@@ -723,6 +823,7 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -2;
+  filter: saturate(0.95) contrast(0.95) brightness(0.95);
 }
 
 .aboutus .hero-overlay {
@@ -731,24 +832,32 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.45);
+  background: linear-gradient(180deg, rgba(6,24,45,0.45), rgba(2,8,20,0.55));
   z-index: -1;
 }
 
 .aboutus .hero-content {
   position: relative;
-  max-width: 800px;
+  max-width: 900px;
   padding: 0 20px;
 }
 
 .aboutus .hero-content h1 {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   margin-bottom: 1rem;
+  color: #e6f6ff;
+  text-shadow: 0 6px 18px rgba(1,12,30,0.35);
+  letter-spacing: -0.5px;
 }
 
 .aboutus .hero-content p {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin-bottom: 2rem;
+  color: rgba(230,246,255,0.95);
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 .aboutus .cta-buttons {
@@ -758,21 +867,56 @@ body {
   justify-content: center;
 }
 
-/* Sections */
+/* ------------------------
+   Section wrappers (subtle panels for each section)
+   ------------------------ */
 .aboutus .section {
   padding: 60px 20px;
   max-width: 1200px;
-  margin: 0 auto;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
+  position: relative;
 }
+
+/* Add subtle panel background behind each content area to modernize layout */
+/* Removed empty ruleset for .aboutus .section:not(.final-cta) .section-inner */
+
+/* Use a soft card-like band for light sections */
+.aboutus .section.light {
+  background: linear-gradient(180deg, rgba(250,251,253,1), rgba(245,247,250,1));
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16,30,50,0.04);
+  padding: 36px 20px;
+}
+
+/* Default section background: slightly off-white with padding */
+.aboutus .section:not(.light) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(249,251,255,0.98));
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(10,20,30,0.03);
+}
+
+/* Section headings */
+.aboutus .section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.6rem;
+  color: #0d6efd;
+  letter-spacing: 0.2px;
+}
+
+/* ------------------------
+   About video container (kept same but ensure overlay)
+   ------------------------ */
 .about-video-container {
   position: relative;
   width: 100%;
-  height: 60vh; 
+  height: 60vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  margin-bottom: 1rem;
 }
 
 .about-video {
@@ -786,6 +930,7 @@ body {
   z-index: -2;
   transform: translate(-50%, -50%);
   object-fit: cover;
+  filter: brightness(0.85) saturate(0.9);
 }
 
 .about-video-container::after {
@@ -795,7 +940,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5); /* dark overlay */
+  background: linear-gradient(180deg, rgba(3,10,25,0.3), rgba(0,6,18,0.5));
   z-index: -1;
 }
 
@@ -807,18 +952,22 @@ body {
   padding: 2rem;
 }
 
-
+/* ------------------------
+   Mission & Vision
+   ------------------------ */
 .mission-vision-section {
   position: relative;
   width: 100%;
-  min-height: 80vh; /* adjust height as needed */
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin-bottom: 2rem;
   margin-top: 1px;
-  background-color: #1e4463; /* fallback color */ 
+  background: linear-gradient(180deg,#08345a,#0d3b73);
+  border-radius: 12px;
+  padding: 2.5rem;
 }
 
 .background-video {
@@ -827,52 +976,35 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 1rem ;
-  object-fit: cover; /* makes sure video covers full area */
-  z-index: 1; /* send video to back */
+  padding: 1rem;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.6) contrast(0.9);
 }
 
 .content-overlay {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: white; /* white text to stand out */
+  color: white;
   padding: 3rem 2rem;
-  background: rgba(0, 0, 0, 0.4); /* dark overlay for readability */
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
   border-radius: 12px;
   max-width: 900px;
   margin: auto;
+  backdrop-filter: blur(6px) saturate(110%);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .content-overlay h2 {
-  color: #4da6ff; /* your blue heading color */
+  color: #aee1ff;
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
 }
 
-.content-overlay h3 {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-.content-overlay p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-
-.aboutus .section.light {
-  background-color: #f5f5f5;
-}
-
-.aboutus .section h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #0d6efd;
-}
-
-/* Two-column layout */
+/* ------------------------
+   Two-column layout
+   ------------------------ */
 .aboutus .two-column {
   display: flex;
   align-items: center;
@@ -886,120 +1018,259 @@ body {
   width: 100%;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(5,15,30,0.08);
 }
 
-/* Cards */
+/* ------------------------
+   Cards modernized
+   ------------------------ */
 .aboutus .cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1.6rem;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
+  align-items: stretch;
 }
 
+/* team cards minimum width unchanged logically, but modernized look */
 .aboutus .cards.team .card {
   width: 250px;
 }
 
+/* modern card base */
 .aboutus .card {
-  background-color: white;
+  background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,249,255,0.96));
+  border: 1px solid rgba(12,75,165,0.06);
   padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 14px;
+  box-shadow:
+    0 10px 30px rgba(6,18,35,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  text-align: left;
+  transition: transform 320ms cubic-bezier(.2,.9,.3,1), box-shadow 320ms ease, filter 320ms ease;
   cursor: default;
+  min-width: 240px;
+  max-width: 320px;
+  position: relative;
+  overflow: hidden;
 }
 
-.aboutus .card:hover {
-  transform: scale(1.05) rotate(1deg);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+/* decorative accent bar */
+.aboutus .card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, #0d6efd, #00b4ff);
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 360ms cubic-bezier(.2,.9,.3,1);
+  opacity: 0.98;
 }
 
-/* Lists */
+/* sheen effect */
+.aboutus .card::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 60%;
+  height: 140%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.14), rgba(255,255,255,0.03));
+  transform: rotate(25deg) translateX(-20%);
+  opacity: 0;
+  transition: opacity 420ms ease, transform 420ms ease;
+  pointer-events: none;
+}
+
+/* hover / focus interactions */
+.aboutus .card:hover,
+.aboutus .card:focus-within {
+  transform: translateY(-10px) rotateZ(0.6deg) scale(1.03);
+  box-shadow:
+    0 22px 48px rgba(6,18,35,0.12),
+    0 6px 18px rgba(6,18,35,0.06);
+  filter: saturate(1.03);
+}
+.aboutus .card:hover::before {
+  transform: scaleY(1);
+}
+.aboutus .card:hover::after {
+  opacity: 1;
+  transform: rotate(25deg) translateX(0%);
+}
+
+/* card typography */
+.aboutus .card h3 {
+  margin: 0 0 0.6rem 0;
+  font-size: 1.03rem;
+  color: #03364d;
+  font-weight: 700;
+}
+.aboutus .card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #274b5a;
+  line-height: 1.45;
+}
+
+/* slide+fade animation for card entry using CSS (complements framer animations) */
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(18px) scale(0.995); filter: blur(4px); }
+  60% { opacity: 1; transform: translateY(-6px) scale(1.01); filter: blur(0.2px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.aboutus .cards .card {
+  opacity: 0;
+  animation: slideUpFade 640ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+.aboutus .cards .card:nth-child(1) { animation-delay: 0.08s; }
+.aboutus .cards .card:nth-child(2) { animation-delay: 0.16s; }
+.aboutus .cards .card:nth-child(3) { animation-delay: 0.24s; }
+.aboutus .cards .card:nth-child(4) { animation-delay: 0.32s; }
+.aboutus .cards .card:nth-child(5) { animation-delay: 0.40s; }
+.aboutus .cards .card:nth-child(6) { animation-delay: 0.48s; }
+
+.aboutus .cards.team .card {
+  box-shadow: 0 10px 28px rgba(6,18,35,0.06);
+}
+.aboutus .cards.team .card:nth-child(1) { animation-delay: 0.10s; }
+.aboutus .cards.team .card:nth-child(2) { animation-delay: 0.18s; }
+.aboutus .cards.team .card:nth-child(3) { animation-delay: 0.26s; }
+
+/* small badge style if needed (keeps consistent color theme) */
+.aboutus .card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.28rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #053047;
+  background: rgba(13,110,253,0.08);
+  border: 1px solid rgba(13,110,253,0.06);
+  margin-bottom: 0.6rem;
+}
+
+/* ------------------------
+   List styling (How it works, Impact)
+   ------------------------ */
 .aboutus .list {
   list-style: none;
   padding-left: 0;
-  margin-top: 1.5rem;
+  margin-top: 1.2rem;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .aboutus .list li {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
+  font-size: 1.05rem;
+  margin-bottom: 1.05rem;
+  padding-left: 2rem;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 260ms ease;
+  color: #1f3b4b;
 }
 
+/* modern dot */
 .aboutus .list li::before {
-  content: "•";
+  content: "";
   position: absolute;
-  left: 0;
-  color: #0d6efd;
-  font-weight: bold;
-  font-size: 1.4rem;
-  line-height: 1;
+  left: 0.6rem;
+  top: 0.6rem;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(180deg,#0d6efd,#00b4ff);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(13,110,253,0.12);
 }
 
+/* hover nudge */
 .aboutus .list li:hover {
-  color: #0d6efd;
-  transform: translateX(5px);
+  transform: translateX(6px);
+  color: #034a72;
 }
 
-/* Timeline */
+/* ------------------------
+   Timeline (Our Journey)
+   ------------------------ */
 .aboutus .timeline {
   list-style: none;
   padding-left: 0;
-  max-width: 800px;
+  max-width: 820px;
   margin: 2rem auto 0;
+  position: relative;
 }
 
 .aboutus .timeline li {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: 1rem;
-  padding-left: 1rem;
-  border-left: 3px solid #0d6efd;
+  padding-left: 1.4rem;
+  border-left: 3px solid rgba(13,110,253,0.12);
   position: relative;
   transition: all 0.3s ease;
+  color: #142a36;
+  background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.0));
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-radius: 6px;
 }
 
+/* timeline dot */
 .aboutus .timeline li::before {
   content: "";
   position: absolute;
-  left: -7px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background-color: #0d6efd;
+  left: -9px;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(180deg,#0d6efd,#00b4ff);
   border-radius: 50%;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 6px 16px rgba(13,110,253,0.12);
 }
 
+/* hover */
 .aboutus .timeline li:hover {
-  color: #0d6efd;
-  transform: translateX(5px);
+  color: #034a72;
+  transform: translateX(6px);
 }
-
 .aboutus .timeline li:hover::before {
-  background-color: #333;
+  box-shadow: 0 10px 28px rgba(13,110,253,0.14);
 }
 
-/* Final CTA */
+/* ------------------------
+   Final CTA (modernized)
+   ------------------------ */
 .aboutus .final-cta {
-  background-color: #0d6efd;
+  background: linear-gradient(90deg,#0666ff 0%, #005dbb 50%, #003f7a 100%);
   color: white;
   text-align: center;
   padding: 60px 20px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin: 50px 0;
+  box-shadow: 0 18px 48px rgba(2,12,32,0.18);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .aboutus .final-cta h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 0 6px 20px rgba(2,8,20,0.18);
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* CTA buttons modernized */
 .aboutus .final-cta .cta-buttons {
   justify-content: center;
   display: flex;
@@ -1007,50 +1278,98 @@ body {
   gap: 1rem;
 }
 
-/* Buttons */
 .aboutus .btn {
-  padding: 0.8rem 2rem;
+  padding: 0.85rem 2rem;
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease;
+  font-weight: 700;
 }
 
 .aboutus .btn.primary {
-  background-color: #fff;
+  background: #ffffff;
   color: #0d6efd;
+  box-shadow: 0 8px 28px rgba(3,10,18,0.12);
 }
 
 .aboutus .btn.secondary {
-  background-color: #fff;
-  color: #0d6efd;
-  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.16);
 }
 
 .aboutus .btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(3,10,18,0.18);
 }
 
-/* ===== Responsive ===== */
+/* ------------------------
+   Responsive tweaks
+   ------------------------ */
+@media (max-width: 1024px) {
+  .aboutus .cards .card { max-width: 46%; flex-basis: 46%; }
+  .aboutus .cards.team .card { max-width: 40%; flex-basis: 40%; }
+  .aboutus .hero-content h1 { font-size: 2.3rem; }
+}
+
 @media (max-width: 768px) {
-  .aboutus .hero-content h1 {
-    font-size: 2rem;
-  }
-
-  .aboutus .hero-content p {
-    font-size: 1rem;
-  }
-
-  .aboutus .two-column {
-    flex-direction: column;
-  }
-
-  .aboutus .card {
-    width: 90%;
-  }
+  .aboutus .hero-content h1 { font-size: 2rem; }
+  .aboutus .hero-content p { font-size: 1rem; }
+  .aboutus .two-column { flex-direction: column; }
+  .aboutus .card { width: 100%; max-width: 100%; }
+  .aboutus .cards .card,
+  .aboutus .cards.team .card { flex-basis: 100%; max-width: 100%; }
+  .aboutus .card::after { display: none; } /* reduce paint on small screens */
+  .aboutus .final-cta h2 { font-size: 1.4rem; }
+  .aboutus .section, .aboutus .section.light { padding: 28px 12px; }
 }
+
+/* ------------------------
+   Team Member Image Styling
+   ------------------------ */
+
+/* path assumes CSS file is next to component and image is at src/assets/ceo-image.avif */
+.aboutus .cards.team .card:first-child {
+  /* define CSS variable for easy path tweak if needed */
+  --hydroid-ceo-img: url("../assets/ceo-image.avif");
+}
+
+/* if you use .card-image inside the card (recommended), style it here */
+.aboutus .cards.team .card:first-child .card-image,
+.aboutus .cards.team .card.with-image .card-image {
+  background-image: var(--hydroid-ceo-img);
+  background-color: #153663 !important; /* keep white background as requested */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 220px;      /* a reasonable size — adjust if needed */
+  height: 220px;
+  border-radius: 12px; /* rounded rectangle; change to 50% for circle */
+  box-shadow: 0 6px 18px rgba(18,18,18,0.06);
+  display: block;
+  flex-shrink: 0;
+  margin-bottom: 0.6rem;
+}
+
+/* also support an alternative: use image as a left inline element if card layout uses flex */
+.aboutus .cards.team .card:first-child .card-image-inline,
+.aboutus .cards.team .card.with-image .card-image-inline {
+  background-image: var(--hydroid-ceo-img);
+  background-color: #ffffff !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(18,18,18,0.06);
+  display: inline-block;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
 /* === SOLUTIONS PAGE === */
 .solutionus {
   font-family: "Poppins", sans-serif;
@@ -1062,10 +1381,10 @@ body {
 /* Section title */
 .solutionus .section-title {
   font-size: 2.5rem;
-  margin-bottom: 50px;
   color: #1d3557;
   font-weight: bold;
   position: relative;
+  margin-top: 40px;
 }
 
 /* === Background Video Section === */
@@ -1965,7 +2284,6 @@ form button:hover {
   }
 }
 /* ---------------- Impact Portal styles ---------------- */
-/* ---------------- Impact Portal styles ---------------- */
 .impact-portal {
   background: linear-gradient(180deg, #f6fbff 0%, #f1f7fb 40%, #ffffff 100%);
   padding: 54px 20px 80px;
@@ -2855,4 +3173,475 @@ form button:hover {
 #submit-sign:hover {
   background-color: rgb(52, 59, 248);
   transform: scale(1.05);
+}
+/* ---- Conservation Highlights (inline section) ----
+   Add this to your main CSS or import in root styles
+*/
+
+/* Section container */
+.conservation-highlights {
+  padding: 56px 20px;
+  background:
+    linear-gradient(rgba(61, 152, 237, 0.975), rgba(245,248,250,0.85));
+  color: #0b2b4a;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.ch-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ch-heading {
+  font-size: 28px;
+  letter-spacing: 0.6px;
+  margin: 6px 0 8px;
+  color: #0d3b73;
+  font-weight: 700;
+}
+
+.ch-sub {
+  margin: 0 0 30px;
+  color: #34506f;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Grid */
+.ch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+
+/* Card base */
+.ch-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(246,251,255,0.9) 100%);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(12, 34, 85, 0.06);
+  border: 1px solid rgba(10, 42, 90, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 240px;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+  overflow: hidden;
+}
+
+/* Unique visual accents on each card */
+.ch-card-1 {
+  background: linear-gradient(180deg, #e9f6ff 0%, #d6ecff 100%);
+  border-left: 6px solid #1e90ff;
+}
+.ch-card-2 {
+  background: linear-gradient(180deg, #fff7f0 0%, #fff0e6 100%);
+  border-left: 6px solid #ff7a4d;
+}
+.ch-card-3 {
+  background: linear-gradient(180deg, #f6fff6 0%, #e8fff0 100%);
+  border-left: 6px solid #27c26e;
+}
+
+/* Icon */
+.ch-icon-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 2px auto 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 6px 18px rgba(12,34,85,0.06), inset 0 -2px 6px rgba(0,0,0,0.02);
+}
+.ch-icon {
+  width: 36px;
+  height: 36px;
+  fill: #0d3b73;
+  opacity: 0.95;
+}
+
+/* Text */
+.ch-title {
+  margin: 6px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #052847;
+}
+.ch-body {
+  margin: 0 0 18px;
+  color: #23465f;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.95;
+}
+
+/* CTA row */
+.ch-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+.ch-cta {
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(12,34,85,0.06);
+  font-size: 13px;
+  color: #0d3b73;
+}
+.ch-tag {
+  font-size: 12px;
+  color: #365a7b;
+  background: rgba(13,59,115,0.06);
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+/* subtle hover lift */
+.ch-card:hover { transform: translateY(-6px); }
+
+/* Skyline decorative footer */
+.ch-skyline {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.ch-skyline-svg {
+  width: 88%;
+  height: 42px;
+  opacity: 0.9;
+  display: block;
+}
+.ch-cities {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: #17405f;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .ch-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .ch-inner { padding: 0 18px; }
+}
+@media (max-width: 640px) {
+  .conservation-highlights { padding: 36px 12px; }
+  .ch-grid { grid-template-columns: 1fr; gap: 14px; }
+  .ch-title { font-size: 16px; }
+  .ch-body { font-size: 13px; }
+  .ch-skyline-svg { width: 100%; height: 30px; }
+  .ch-cities { gap: 12px; font-size: 12px; }
+}
+
+/* -------------------------------
+   Footer styles for Hydroid
+   Matches the structure/classnames used in Footer.jsx
+   Paste into index.css
+   ------------------------------- */
+
+/* Base footer layout */
+.site-footer {
+  background: linear-gradient(180deg,#081426 0%, #071424 100%);
+  color: #d6e7f6;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  padding: 44px 20px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+/* inner container centers content and constrains width */
+.footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Top area with brand + columns */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Brand area */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+/* Brand link & logo */
+.brand-link { display: inline-block; text-decoration: none; }
+.brand-logo { display: block; }
+
+/* Social icons row */
+.footer-social {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.footer-social .social-link {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  color: #cfe8ff;
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+.footer-social .social-link svg { width: 18px; height: 18px; }
+.footer-social .social-link:hover,
+.footer-social .social-link:focus {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 8px 18px rgba(6,18,36,0.28);
+  color: #fff;
+  outline: none;
+}
+
+/* Columns container (links + contact) */
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* Column headings */
+.footer-col .col-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e6f3ff;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+/* Lists inside columns */
+.col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.col-list li { margin: 0; }
+
+/* Links */
+.footer-link,
+.contact-link,
+.legal-link {
+  color: #cde9ff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 160ms ease, transform 160ms ease;
+}
+.footer-link:hover,
+.contact-link:hover,
+.legal-link:hover,
+.footer-link:focus,
+.contact-link:focus,
+.legal-link:focus {
+  color: #ffffff;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Contact block styles */
+.contact-block { margin: 0; font-size: 14px; color: #cfe7ff; line-height: 1.6; }
+.contact-line { margin: 6px 0; }
+.contact-line .contact-link { color: #dff6ff; font-weight: 600; }
+
+/* Address smaller text */
+.contact-line.address { color: #b8dff5; font-size: 13px; opacity: 0.95; }
+
+/* App badges */
+.app-badges { display:flex; gap:12px; margin-top:12px; align-items:center; }
+.app-badge { display:inline-block; filter: saturate(0.95); transition: transform 180ms ease, filter 180ms ease; }
+.app-badge:hover { transform: translateY(-6px); filter: saturate(1.15); }
+
+/* Footer bottom row */
+.footer-bottom {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  padding-top: 18px;
+  margin-top: 8px;
+}
+.footer-bottom .copyright {
+  margin: 0;
+  color: #b9dff4;
+  font-size: 13px;
+  opacity: 0.95;
+}
+.footer-legal { display:flex; gap: 12px; align-items: center; }
+.footer-legal .legal-link { font-size: 13px; color: #cde8ff; }
+
+/* Small-screen responsive */
+@media (max-width: 980px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-columns { grid-template-columns: repeat(1, 1fr); }
+  .footer-inner { gap: 22px; padding: 10px; }
+  .footer-brand { align-items: flex-start; }
+  .app-badges { gap: 8px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+/* Very small screens */
+@media (max-width: 520px) {
+  .footer-columns { gap: 14px; }
+  .footer-social .social-link { width: 36px; height: 36px; }
+  .footer-bottom .copyright { font-size: 12px; }
+  .col-title { font-size: 13px; }
+}
+
+/* Accessibility: focus ring for keyboard users */
+.footer-link:focus,
+.contact-link:focus,
+.legal-link:focus,
+.footer-social .social-link:focus {
+  box-shadow: 0 0 0 3px rgba(34,122,255,0.14);
+  border-radius: 8px;
+}
+
+/* Optional: subtle entry animation if JS doesn't run framer */
+.site-footer { transform: translateY(0); opacity: 1; transition: opacity 420ms ease, transform 420ms ease; }
+
+/* Slight color adjustment for very bright logos/images */
+.brand-logo text { fill: var(--hydroid-blue, #0D3B73); }
+
+/* Utility: hidden visually but accessible */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+/* Brand visibility tweaks */
+.site-footer .brand-logo {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Make the SVG text pop: brighter color, slightly larger, subtle glow */
+.site-footer .brand-logo .brand-logo-text {
+  fill: #4FC3F7;            /* bright cyan-blue; change to any hex you prefer */
+  font-size: 20px;          /* keep synced with SVG attribute or override */
+  font-weight: 800;
+  paint-order: stroke fill;
+  /* subtle glow using text-shadow on an inline SVG is not supported everywhere;
+     but many browsers will pick up filter or use CSS fallback: */
+  filter: drop-shadow(0 2px 6px rgba(79, 195, 247, 0.18));
+}
+
+/* In case you want a stronger contrast on small screens */
+@media (max-width: 768px) {
+  .site-footer .brand-logo .brand-logo-text {
+    fill: #6FD9FF;
+    font-size: 22px;
+  }
+}
+
+/* example assuming order in your page:
+   1: What We Do    => .section:nth-of-type(1)
+   2: How It Works  => .section:nth-of-type(2)  (light)
+   3: Our Impact    => .section:nth-of-type(3)
+   4: Our Journey   => .section:nth-of-type(4)  (light)
+*/
+
+.aboutus .section:nth-of-type(1) {
+  background: linear-gradient(180deg,#2978e0b6,#eef7ff);
+  border: 1px solid rgba(10,60,110,0.06);
+}
+
+.aboutus .section:nth-of-type(2) { /* How It Works */
+  background: linear-gradient(180deg,#fff8f2,#fff4ea);
+  border: 1px solid rgba(120,80,20,0.04);
+}
+
+.aboutus .section:nth-of-type(3) {
+  background: linear-gradient(180deg,#f6fff6,#eafdef);
+  border: 1px solid rgba(6,120,60,0.04);
+}
+
+.aboutus .section:nth-of-type(4) { /* Our Journey */
+  background: linear-gradient(180deg,#f3f7ff,#eef5ff);
+  border: 1px solid rgba(6,60,120,0.04);
+}
+
+/* =========================
+   Footer visual cleanup — minimal overrides
+   Append this at the END of your CSS file
+   ========================= */
+
+/* Remove any solid top border or harsh box-shadow that creates a black bar */
+.site-footer,
+.site-footer .footer-top,
+.site-footer .footer-inner,
+.site-footer .footer-bottom {
+  background: transparent !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+
+/* If your final CTA has a bottom border-radius creating a black seam,
+   make sure the element below has matching background / no gap. */
+.final-cta {
+  margin-bottom: 0 !important; /* remove gap under CTA */
+}
+
+/* Ensure footer uses the expected dark-navy background (not pure black).
+   Change colors to match your design; this is subtle and avoids a hard black */
+.site-footer {
+  background: linear-gradient(180deg, #071827 0%, #081b2c 100%) !important;
+  color: #dbeefc;
+}
+
+/* Remove any stray hr or separator inside footer */
+.site-footer hr,
+.site-footer .separator,
+.footer-top .separator {
+  display: none !important;
+}
+
+/* If there's a top-level wrapper between sections add safe padding instead of a solid fill */
+.footer-top {
+  padding-top: 40px;    /* keep spacing without adding visible bar */
+  background: transparent !important;
+}
+
+/* Make the footer edges blend smoothly if you have rounded CTA above it */
+.aboutus .final-cta,
+.final-cta {
+  border-bottom-left-radius: 0.6rem; /* adjust if needed so corners align */
+  border-bottom-right-radius: 0.6rem;
+}
+
+/* Small safeguard for mobile where layout can create tiny gaps */
+@media (max-width: 768px) {
+  .final-cta { margin-bottom: 0 !important; }
+  .site-footer { padding-top: 28px; }
 }

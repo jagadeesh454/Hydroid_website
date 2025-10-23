@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { scroller } from "react-scroll";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,9 +109,10 @@ export default function Navbar() {
       <div className="container nav-row">
         {/* Brand */}
         <div className="brand">
-          <Link to="/">Hydroid</Link>
-        </div>
-
+  <Link to="/" aria-label="Hydroid Home">
+    <img src={logo} alt="Hydroid Logo" className="hydroid-logo" />
+  </Link>
+</div>
         {/* Desktop Nav */}
         <nav className="nav-desktop" aria-label="Primary navigation">
           <ul>

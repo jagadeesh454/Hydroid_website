@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import appVideo from "../assets/app-vedio.mp4";
 import waterbg from "../assets/waterbg.jpg"; // background image
 
-// === Animation variants (reuse) ===
+// === Animation variants ===
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i = 1) => ({ opacity: 1, y: 0, transition: { delay: i * 0.12, duration: 0.6 } }),
@@ -32,7 +32,7 @@ const features = [
   { icon: "🌍", title: "Sustainability Impact", desc: "Enabling long-term conservation and reduced demand." },
 ];
 
-// === New Scrolling Highlights (different wording) ===
+// === New Scrolling Highlights ===
 const HIGHLIGHTS = [
   {
     id: "sc1",
@@ -271,7 +271,7 @@ export default function Solutions() {
         </div>
       </section>
 
-      {/* ------------------ Impact Portal (existing counters & cases) ------------------ */}
+      {/* ------------------ Impact Portal ------------------ */}
       <section id="impact-portal" className="section impact-portal" ref={portalRef}>
         <div className="impact-inner">
           <motion.h2 className="impact-title" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={zoomIn}>
@@ -430,6 +430,112 @@ export default function Solutions() {
       </section>
       {/* ------------------ End Impact Portal ------------------ */}
 
+      {/* ------------------ Conservation Highlights ------------------ */}
+      <section className="conservation-highlights" aria-label="Conservation highlights">
+        <div className="ch-inner">
+          <motion.h2
+            className="ch-heading"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Together for a Water-Smart Future
+          </motion.h2>
+          <p className="ch-sub">
+            Building communities that monitor, share, and conserve water collectively — because every drop counts when everyone contributes.
+          </p>
+
+          <motion.div
+            className="ch-grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
+          >
+            {/* Card 1 (new text — same meaning) */}
+            <motion.article
+              className="ch-card ch-card-1"
+              variants={{ hidden: { opacity: 0, y: 28, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } } }}
+              whileHover={{ y: -8, boxShadow: "0 18px 40px rgba(12, 34, 85, 0.12)" }}
+            >
+              <motion.div className="ch-icon-wrap" whileHover={{ y: -6 }} aria-hidden>
+                <svg viewBox="0 0 24 24" className="ch-icon" aria-hidden>
+                  <path d="M3 13c0-1.7 1-3 2.5-3.5C8 8 11 6 12 3c1 3 4 5 6.5 6.5C20 10 21 11.3 21 13c0 3-3 5-9 8-6-3-9-5-9-8z" />
+                </svg>
+              </motion.div>
+              <h3 className="ch-title">Data-driven Meter Insights</h3>
+              <p className="ch-body">
+                Providing accurate water readings and intuitive dashboards that help every building manage water flow efficiently and make informed decisions based on real usage.
+              </p>
+              <div className="ch-cta-row">
+                <button className="ch-cta">Learn More</button>
+                <span className="ch-tag">Measurement</span>
+              </div>
+            </motion.article>
+
+            {/* Card 2 (new text — same meaning) */}
+            <motion.article
+              className="ch-card ch-card-2"
+              variants={{ hidden: { opacity: 0, y: 28, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, delay: 0.06 } } }}
+              whileHover={{ y: -8, boxShadow: "0 18px 40px rgba(12, 34, 85, 0.12)" }}
+            >
+              <motion.div className="ch-icon-wrap" whileHover={{ y: -6 }} aria-hidden>
+                <svg viewBox="0 0 24 24" className="ch-icon" aria-hidden>
+                  <path d="M12 2l3 6 6 .5-4.5 3 1.5 6L12 15l-6 3 1.5-6L3 8.5 9 8 12 2z" />
+                </svg>
+              </motion.div>
+              <h3 className="ch-title">Encouraging Mindful Use</h3>
+              <p className="ch-body">
+                Smart water reminders and gentle alerts help residents build daily habits that reduce water waste and promote responsible consumption throughout their homes.
+              </p>
+              <div className="ch-cta-row">
+                <button className="ch-cta">Learn More</button>
+                <span className="ch-tag">Behaviour</span>
+              </div>
+            </motion.article>
+
+            {/* Card 3 (new text — same meaning) */}
+            <motion.article
+              className="ch-card ch-card-3"
+              variants={{ hidden: { opacity: 0, y: 28, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, delay: 0.12 } } }}
+              whileHover={{ y: -8, boxShadow: "0 18px 40px rgba(12, 34, 85, 0.12)" }}
+            >
+              <motion.div className="ch-icon-wrap" whileHover={{ y: -6 }} aria-hidden>
+                <svg viewBox="0 0 24 24" className="ch-icon" aria-hidden>
+                  <path d="M12 3C8 7 4 8 4 12c0 2.8 2.7 5 6 5s6-2.2 6-5c0-4-4-5-4-9z" />
+                </svg>
+              </motion.div>
+              <h3 className="ch-title">Community Conservation Programs</h3>
+              <p className="ch-body">
+                Shared water insights and collective goals encourage communities to work together, conserve resources, and achieve long-term sustainability with measurable results.
+              </p>
+              <div className="ch-cta-row">
+                <button className="ch-cta">Learn More</button>
+                <span className="ch-tag">Community</span>
+              </div>
+            </motion.article>
+          </motion.div>
+
+          {/* Skyline decorative footer */}
+          <div className="ch-skyline" aria-hidden>
+            <svg viewBox="0 0 1000 60" preserveAspectRatio="none" className="ch-skyline-svg">
+              <g fill="none" stroke="#213b6b" strokeWidth="1.4" strokeLinecap="round">
+                <path d="M10 50 L40 20 L70 50 L100 30 L140 50 L180 20 L220 50 L260 50 L300 20 L340 50 L380 30 L420 50 L460 40 L500 50 L540 20 L580 50 L620 30 L660 50 L700 20 L740 50 L780 30 L820 50 L860 40 L900 50 L940 30 L980 50" />
+              </g>
+            </svg>
+            <ul className="ch-cities">
+              <li>Bangalore</li>
+              <li>Hyderabad</li>
+              <li>Chennai</li>
+              <li>Kochi</li>
+              <li>Pune</li>
+              <li>Mumbai</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      {/* ------------------ END INLINED Conservation Highlights ------------------ */}
+
       {/* ------------------ NEW SECTION: Auto-scrolling Highlights — one-by-one cards ------------------ */}
       <section className="section highlights-rolling" aria-label="Highlights carousel">
         <div className="highlights-inner">
@@ -474,6 +580,7 @@ export default function Solutions() {
         </div>
       </section>
       {/* ------------------ END Auto-scrolling Highlights ------------------ */}
+
     </div>
   );
 }
