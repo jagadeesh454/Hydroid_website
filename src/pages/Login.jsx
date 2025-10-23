@@ -1,5 +1,4 @@
 import React from "react";
-import "./Login.css";
 
 const Login = () => {
   return (
@@ -16,14 +15,14 @@ const Login = () => {
       </div>
 
       {/* Login Box */}
-      <div id="main-container">
+      <div id="main-container-login">
         <h1>Welcome!</h1>
-        <h2 id="heading">Login</h2>
+        <h2 id="heading-log">Login</h2>
         <input className="input-box" type="text" placeholder="Username" required />
         <br />
         <input className="input-box" type="password" placeholder="Password" required />
         <br />
-        <button id="submit">Sign up</button>
+        <button id="submit-sign">Sign up</button>
       </div>
     </div>
   );
