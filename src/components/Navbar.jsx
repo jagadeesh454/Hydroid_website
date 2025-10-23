@@ -10,7 +10,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const resourcesRef = useRef(null);
 
-  // nav items (match your App.jsx routes: use lowercase /resources)
+  // nav items (match your App routes)
   const navItems = [
     { path: "/", label: "HOME" },
     { path: "/about", label: "ABOUT US" },
@@ -20,7 +20,6 @@ export default function Navbar() {
     { path: "/contact", label: "CONTACT" },
   ];
 
-  // Resource links changed to query-based targets that land on /resources
   const resourcesItems = [
     { path: "/resources?tab=faq", label: "FAQ", tab: "faq" },
     { path: "/resources?tab=case", label: "Case Studies", tab: "case" },
@@ -57,33 +56,52 @@ export default function Navbar() {
     };
   }, []);
 
-  // smooth scroll for WHY HYDROID
-  const handleWhyHydroidClick = (e) => {
-    e.preventDefault();
-    if (location.pathname === "/") {
-      scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        scroller.scrollTo("features", { smooth: true, duration: 800, offset: -70 });
-      }, 300);
-    }
-  };
-
-  // Navigate to /resources with query param. Use navigate so SPA stays in-app.
-  // If user middle-clicks or opens in new tab, the Link default will handle it.
+  // navigate to /resources while keeping SPA behavior
   const onResourceSelect = (path, tab) => {
-    // close menus immediately
     setResourcesOpen(false);
     setOpen(false);
-
-    // Prefer SPA navigation to keep app state
     navigate(path, { replace: false });
-    // Scroll to top after short delay to ensure the page has rendered
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 120);
   };
+
+  const findScrollTarget = (targetName) => {
+    if (!targetName) return null;
+    return (
+      document.getElementById(targetName) ||
+      document.querySelector(`[data-scroll-id="${targetName}"]`) ||
+      document.querySelector(`[name="${targetName}"]`)
+    );
+  };
+
+  // handle click for nav items that request scrolling
+  const handleScrollNav = (e, path, targetName = "features") => {
+    if (e && e.preventDefault) e.preventDefault();
+
+    // special handling for WHY HYDROID (example)
+    if (path === "/why-hydroid") {
+      if (location.pathname === path) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate(path);
+      }
+      return;
+    }
+
+    if (location.pathname === path) {
+      const el = findScrollTarget(targetName);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+      return;
+    }
+
+    navigate(path, { state: { scrollTo: targetName } });
+  };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
@@ -119,13 +137,11 @@ export default function Navbar() {
                       <ul className="dropdown-menu" role="menu" aria-label="Resources submenu">
                         {resourcesItems.map((r) => (
                           <li key={r.path} role="none">
-                            {/* Link supports middle-click / open in new tab; click handler does SPA navigate */}
                             <Link
                               role="menuitem"
                               className="dropdown-item"
                               to={r.path}
                               onClick={(e) => {
-                                // if user used modifier (middle-click/ctrl/cmd), let Link handle it (do not preventDefault)
                                 const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1;
                                 if (isModified) return;
                                 e.preventDefault();
@@ -145,11 +161,17 @@ export default function Navbar() {
               return (
                 <li key={item.path}>
                   {item.scrollTo ? (
-                    <a href={item.path} onClick={handleWhyHydroidClick}>
+                    <a
+                      href={item.path}
+                      onClick={(e) => handleScrollNav(e, item.path, item.scrollTo)}
+                      className={isActive(item.path) ? "active" : ""}
+                    >
                       {item.label}
                     </a>
                   ) : (
-                    <Link to={item.path}>{item.label}</Link>
+                    <Link to={item.path} className={isActive(item.path) ? "active" : ""}>
+                      {item.label}
+                    </Link>
                   )}
                 </li>
               );
@@ -174,6 +196,7 @@ export default function Navbar() {
             className={`hamburger ${open ? "open" : ""}`}
             aria-label="Toggle menu"
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             <span />
@@ -184,7 +207,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+      <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
         <ul>
           {navItems.map((item) => {
             if (item.label === "RESOURCES") {
@@ -226,18 +249,20 @@ export default function Navbar() {
             return (
               <li key={item.path}>
                 {item.scrollTo ? (
-                  <a href={item.path} onClick={handleWhyHydroidClick}>
+                  <a href={item.path} onClick={(e) => { setOpen(false); handleScrollNav(e, item.path, item.scrollTo); }}>
                     {item.label}
                   </a>
                 ) : (
-                  <Link to={item.path}>{item.label}</Link>
+                  <Link to={item.path} onClick={() => setOpen(false)}>
+                    {item.label}
+                  </Link>
                 )}
               </li>
             );
           })}
 
           <li>
-            <Link to="/login">LOGIN</Link>
+            <Link to="/login" onClick={() => setOpen(false)}>LOGIN</Link>
           </li>
         </ul>
       </div>
