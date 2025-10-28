@@ -2356,7 +2356,7 @@ form button:hover {
 .faq summary {
   font-weight: bold;
   list-style: none;
-  font-style: oblique;
+  font-style: Arial, sans-serif;
 }
 
 .faq summary::-webkit-details-marker {
@@ -2570,22 +2570,12 @@ form button:hover {
   margin-bottom: 0;
 }
 
-.container-body {
-  background-image: url('https://cdn.pixabay.com/photo/2013/07/18/20/25/splash-164963_1280.jpg');
-  color: rgb(122, 122, 249);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin-top: 0;
-  border-radius: 5px;
-  text-align: center;
-}
 
 #contact-GT {
-  margin-top: 50px;
+  margin-top: 0;
   padding-left: 20px;
   text-align: center;
-  background-color: rgb(96, 96, 201);
+  background-color: rgb(72, 176, 237);
   color: black;
 }
 
@@ -2614,7 +2604,7 @@ form button:hover {
   margin: 10px;
   padding: 12px;
   width: 300px;
-  height: 300px;
+  height: 320px;
   border-radius: 8px;
   gap: 20px;
   text-align: center;
@@ -2688,6 +2678,14 @@ form button:hover {
   color: var(--primary);
   text-decoration: none;
 }
+#heading-GT{
+  text-align: center;
+  margin: 0;
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  animation: fadeIn 2s ease-in-out;
+}
 
 .address {
   margin-top: 10px;
@@ -2737,7 +2735,7 @@ form button:hover {
 }
 
 #main-container-login {
-  width: 320px;
+  width: 360px;
   color: white;
   border-radius: 10px;
   padding: 40px;
