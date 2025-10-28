@@ -166,7 +166,7 @@ function CaseStudies() {
             />
             <p className="text-line-cs">
               Srinidhi The Central Park optimized water usage, achieving up to
-              40% savings with smart WaterOn metering solutions
+              40% savings with smart Hydroid metering solutions
             </p>
           </li>
 
@@ -179,7 +179,7 @@ function CaseStudies() {
             />
             <p className="text-line">
               Saroj bluebells optimized water usage, achieving up to 40% savings
-              with smart WaterOn metering solutions
+              with smart Hydroid metering solutions
             </p>
           </li>
 
@@ -192,13 +192,13 @@ function CaseStudies() {
             />
             <p className="text-line">
               Dwarakamai Apex Villa optimized water usage, achieving up to 40%
-              savings with smart WaterOn metering solutions
+              savings with smart Hydroid metering solutions
             </p>
           </li>
         </ul>
       </div>
 
-      <div id="contact" className="contact-section" role="contentinfo">
+      <div id="heading-GT" className="contact-section" role="contentinfo">
         <h2>Get in Touch</h2>
 
         <p className="contact-line">
