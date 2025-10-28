@@ -11,7 +11,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const resourcesRef = useRef(null);
 
-  // nav items (match your App routes)
+  // nav items
   const navItems = [
     { path: "/", label: "HOME" },
     { path: "/about", label: "ABOUT US" },
@@ -33,7 +33,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close menus when the route changes
+  // close menus when route changes
   useEffect(() => {
     setOpen(false);
     setResourcesOpen(false);
@@ -57,7 +57,7 @@ export default function Navbar() {
     };
   }, []);
 
-  // navigate to /resources while keeping SPA behavior
+  // navigate to /resources
   const onResourceSelect = (path, tab) => {
     setResourcesOpen(false);
     setOpen(false);
@@ -76,11 +76,10 @@ export default function Navbar() {
     );
   };
 
-  // handle click for nav items that request scrolling
+  // handle scroll-based navigation
   const handleScrollNav = (e, path, targetName = "features") => {
     if (e && e.preventDefault) e.preventDefault();
 
-    // special handling for WHY HYDROID (example)
     if (path === "/why-hydroid") {
       if (location.pathname === path) {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -109,10 +108,11 @@ export default function Navbar() {
       <div className="container nav-row">
         {/* Brand */}
         <div className="brand">
-  <Link to="/" aria-label="Hydroid Home">
-    <img src={logo} alt="Hydroid Logo" className="hydroid-logo" />
-  </Link>
-</div>
+          <Link to="/" aria-label="Hydroid Home">
+            <img src={logo} alt="Hydroid Logo" className="hydroid-logo" />
+          </Link>
+        </div>
+
         {/* Desktop Nav */}
         <nav className="nav-desktop" aria-label="Primary navigation">
           <ul>
@@ -136,7 +136,11 @@ export default function Navbar() {
                     </button>
 
                     {resourcesOpen && (
-                      <ul className="dropdown-menu" role="menu" aria-label="Resources submenu">
+                      <ul
+                        className="dropdown-menu"
+                        role="menu"
+                        aria-label="Resources submenu"
+                      >
                         {resourcesItems.map((r) => (
                           <li key={r.path} role="none">
                             <Link
@@ -144,7 +148,11 @@ export default function Navbar() {
                               className="dropdown-item"
                               to={r.path}
                               onClick={(e) => {
-                                const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1;
+                                const isModified =
+                                  e.metaKey ||
+                                  e.ctrlKey ||
+                                  e.shiftKey ||
+                                  e.button === 1;
                                 if (isModified) return;
                                 e.preventDefault();
                                 onResourceSelect(r.path, r.tab);
@@ -165,13 +173,18 @@ export default function Navbar() {
                   {item.scrollTo ? (
                     <a
                       href={item.path}
-                      onClick={(e) => handleScrollNav(e, item.path, item.scrollTo)}
+                      onClick={(e) =>
+                        handleScrollNav(e, item.path, item.scrollTo)
+                      }
                       className={isActive(item.path) ? "active" : ""}
                     >
                       {item.label}
                     </a>
                   ) : (
-                    <Link to={item.path} className={isActive(item.path) ? "active" : ""}>
+                    <Link
+                      to={item.path}
+                      className={isActive(item.path) ? "active" : ""}
+                    >
                       {item.label}
                     </Link>
                   )}
@@ -181,14 +194,27 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* Actions (right) */}
+        {/* ✅ Actions (right) */}
         <div className="nav-actions">
-          <Link to="/login" className="login-link" aria-label="Login">
+          <a
+            href="https://hydroidwaterfe.azurewebsites.net/login"
+            className="login-link"
+            aria-label="Login"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             LOGIN
-          </Link>
+          </a>
 
           <button className="icon-btn" aria-label="Search">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <circle cx="11" cy="11" r="7" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -208,8 +234,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+      {/* ✅ Mobile Menu */}
+      <div
+        id="mobile-menu"
+        className={`mobile-menu ${open ? "open" : ""}`}
+        aria-hidden={!open}
+      >
         <ul>
           {navItems.map((item) => {
             if (item.label === "RESOURCES") {
@@ -232,7 +262,11 @@ export default function Navbar() {
                             className="mobile-res-item"
                             to={r.path}
                             onClick={(e) => {
-                              const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1;
+                              const isModified =
+                                e.metaKey ||
+                                e.ctrlKey ||
+                                e.shiftKey ||
+                                e.button === 1;
                               if (isModified) return;
                               e.preventDefault();
                               onResourceSelect(r.path, r.tab);
@@ -251,7 +285,13 @@ export default function Navbar() {
             return (
               <li key={item.path}>
                 {item.scrollTo ? (
-                  <a href={item.path} onClick={(e) => { setOpen(false); handleScrollNav(e, item.path, item.scrollTo); }}>
+                  <a
+                    href={item.path}
+                    onClick={(e) => {
+                      setOpen(false);
+                      handleScrollNav(e, item.path, item.scrollTo);
+                    }}
+                  >
                     {item.label}
                   </a>
                 ) : (
@@ -263,8 +303,17 @@ export default function Navbar() {
             );
           })}
 
+          {/* ✅ Modified Mobile LOGIN link (opens in new tab) */}
           <li>
-            <Link to="/login" onClick={() => setOpen(false)}>LOGIN</Link>
+            <a
+              href="https://hydroidwaterfe.azurewebsites.net/login"
+              className="login-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+            >
+              LOGIN
+            </a>
           </li>
         </ul>
       </div>
