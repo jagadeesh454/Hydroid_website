@@ -5,12 +5,10 @@ metadata:
   name: hydroid-service
 
 spec:
-
   selector:
     app: hydroid-website
 
   ports:
-
   - port: 80
     targetPort: 80
 

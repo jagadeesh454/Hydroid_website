@@ -12,21 +12,17 @@ spec:
       app: hydroid-website
 
   template:
-
     metadata:
       labels:
         app: hydroid-website
 
     spec:
-
       containers:
-
       - name: hydroid-website
 
-        image: hydroidacr123.azurecr.io/hydroid-website:latest
+        image: hydroidacr.azurecr.io/hydroid-website:latest
 
         imagePullPolicy: Always
 
         ports:
-
         - containerPort: 80
