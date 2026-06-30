@@ -1,22 +1,139 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+  nodeVersion: '20.x'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
+  # Docker
+  imageRepository: 'hydroid-website'
+  dockerRegistryServiceConnection: 'acr-connection'
+  containerRegistry: 'hydroidacr.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  imageTag: '$(Build.BuildId)'
 
-- script: npm install
-  displayName: 'Install Dependencies'
+  # Kubernetes
+  kubernetesServiceConnection: 'aks-connection'
+  namespace: 'default'
 
-- script: npm run build
-  displayName: 'Build Application'
+stages:
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'dist'
-    ArtifactName: 'website'
-    publishLocation: 'Container'
+#==========================================================
+# Stage 1 - Build
+#==========================================================
+
+- stage: Build
+  displayName: 'Build React Application'
+
+  jobs:
+
+  - job: Build
+
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(nodeVersion)
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install
+      displayName: 'Install Dependencies'
+
+    - script: |
+        npm run build
+      displayName: 'Build React Application'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: 'dist'
+        ArtifactName: 'website'
+        publishLocation: 'Container'
+      displayName: 'Publish Build Artifact'
+
+#==========================================================
+# Stage 2 - Docker
+#==========================================================
+
+- stage: Docker
+
+  displayName: 'Docker Build & Push'
+
+  dependsOn: Build
+
+  jobs:
+
+  - job: Docker
+
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+
+    - checkout: self
+
+    - task: Docker@2
+      displayName: 'Build and Push Docker Image'
+
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+
+        tags: |
+          $(imageTag)
+          latest
+
+#==========================================================
+# Stage 3 - Deploy to AKS
+#==========================================================
+
+- stage: Deploy
+
+  displayName: 'Deploy to AKS'
+
+  dependsOn: Docker
+
+  jobs:
+
+  - deployment: DeployToAKS
+
+    displayName: 'Deploy Application'
+
+    environment: 'Production'
+
+    pool:
+      vmImage: ubuntu-latest
+
+    strategy:
+
+      runOnce:
+
+        deploy:
+
+          steps:
+
+          - checkout: self
+
+          - task: KubernetesManifest@1
+
+            displayName: 'Deploy to AKS'
+
+            inputs:
+
+              action: deploy
+
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+
+              namespace: $(namespace)
+
+              manifests: |
+                k8s/deployment.yaml
+                k8s/service.yaml
+                k8s/ingress.yaml
+
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(imageTag)
